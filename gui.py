@@ -27,3 +27,11 @@ class GUI:
                 return True
         return False
 
+    @staticmethod
+    def close() -> None:
+        """
+        Closes the current Pygame window.
+        """
+        pygame.quit()
+        pygame.init()
+
