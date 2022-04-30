@@ -132,7 +132,16 @@ class SortingElement:
 
 
 class ShowSortingGUI(GUI):
+    """
+    Generic class for a sorting algorithm GUI
+    """
     def __init__(self, width: int, height: int, sort_name: str, frame_length: float = 0.1) -> None:
+        """
+        :param width: Width of the window
+        :param height: Height of the window
+        :param sort_name: Name of the sorting algorithm
+        :param frame_length: Length of each frame
+        """
         super().__init__(width, height)
         self._create_window(sort_name)
         self._to_sort = []
@@ -140,10 +149,18 @@ class ShowSortingGUI(GUI):
         self._frame_length = frame_length
 
     def start(self, wait_time: float) -> None:
+        """
+        Starts the sorting algorithm
+        :param wait_time: Wait time before starting
+        """
         time.sleep(wait_time)
         self.sort()
 
     def draw(self) -> None:
+        """
+        Redraws the window with the newest list
+        :return:
+        """
         if self.check_events_exit():
             exit()
 
@@ -171,9 +188,18 @@ class ShowSortingGUI(GUI):
         time.sleep(self._frame_length)
 
     def sort(self) -> None:
+        """
+        Sort function: implemented in child classes
+        """
         pass
 
     def generate_values_to_sort(self, amount: int) -> list[SortingElement]:
+        """
+        Generates the list of values being sorted
+        :param amount: Length of list requested
+        :return: Randomly generated list of SortingElements
+        :rtype: list[SortingElement]
+        """
         max_height = self._height * 0.9
         out = []
         for _ in range(amount):
