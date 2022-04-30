@@ -208,12 +208,23 @@ class ShowSortingGUI(GUI):
 
 
 class BubbleSort(ShowSortingGUI):
+    """
+    Runs and displays a Bubble Sort
+    """
     def __init__(self, width: int, height: int, elements: int) -> None:
+        """
+        :param width: Width of the window
+        :param height: Height of the window
+        :param elements: Number of elements to sort
+        """
         super().__init__(width, height, "Bubble Sort")
         self._to_sort = self.generate_values_to_sort(elements)
         self.draw()
 
     def sort(self) -> None:
+        """
+        Runs the Bubble Sort algorithm
+        """
         changed = True
 
         while changed:
