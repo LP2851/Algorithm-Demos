@@ -2,7 +2,7 @@ from __future__ import annotations
 import time
 import sys
 
-from sorting import BubbleSort
+from sorting import BubbleSort, MergeSort
 from pathfinding import ShowPathfindingGUI
 
 
@@ -19,6 +19,14 @@ def arg_help() -> None:
 
 def arg_bubble_sort() -> None:
     sorter = BubbleSort(768, 512, ELEMENTS_TO_SORT)
+    sorter.start(0.1)
+    while not sorter.check_events_exit():
+        pass
+    sorter.close()
+
+
+def arg_merge_sort() -> None:
+    sorter = MergeSort(768, 512, ELEMENTS_TO_SORT)
     sorter.start(0.1)
     while not sorter.check_events_exit():
         pass
@@ -74,7 +82,9 @@ all_args = {
     "--bubble-sort": ["SOMETHING",
                       arg_bubble_sort],
     "--pathfinder": ["",
-                     arg_pathfinder]
+                     arg_pathfinder],
+    "--merge-sort": ["Performs a Merge Sort",
+                     arg_merge_sort]
 }
 
 if __name__ == "__main__":
