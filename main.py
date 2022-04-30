@@ -6,6 +6,9 @@ from sorting import BubbleSort
 from pathfinding import ShowPathfindingGUI
 
 
+ELEMENTS_TO_SORT = 50
+
+
 def arg_help() -> None:
     print("Help:")
     print("Here is a list of commands you can use.")
@@ -15,7 +18,7 @@ def arg_help() -> None:
 
 
 def arg_bubble_sort() -> None:
-    sorter = BubbleSort(768, 512, 2)
+    sorter = BubbleSort(768, 512, ELEMENTS_TO_SORT)
     sorter.start(0.1)
     while not sorter.check_events_exit():
         pass
