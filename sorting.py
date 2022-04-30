@@ -3,7 +3,7 @@ import pygame
 import time
 import random
 from gui import GUI
-from dataclasses import dataclass
+
 pygame.font.init()
 
 WIDTH = 768
@@ -20,51 +20,114 @@ BLUE    = (  0,   0, 255)
 
 
 class SortingElement:
+    """
+    SortingElement is a element that is being sorted
+    """
     def __init__(self, value: float) -> None:
+        """
+        :param value: The value of the element
+        """
         self.value = value
         self.focused = False
 
     @staticmethod
-    def __other_is_sorting_element(other) -> bool:
+    def __is_sorting_element(other) -> bool:
+        """
+        Returns if the passed object is a sorting element
+        :param other: The object to be checked
+        :return: True if other is an instance of SortingElement
+        :rtype: bool
+        """
         return isinstance(other, SortingElement)
 
-    def __ge__(self, other):
-        if not self.__other_is_sorting_element(other):
+    def __ge__(self, other) -> bool:
+        """
+        >=
+        :param other: B in `A >= B`
+        :return: A >= B
+        :rtype: bool
+        """
+        if not self.__is_sorting_element(other):
             raise TypeError
         return self.value >= other.value
 
-    def __le__(self, other):
-        if not self.__other_is_sorting_element(other):
+    def __le__(self, other) -> bool:
+        """
+        <=
+        :param other: B in `A <= B`
+        :return: A <= B
+        :rtype: bool
+        """
+        if not self.__is_sorting_element(other):
             raise TypeError
         return self.value <= other.value
 
-    def __lt__(self, other):
-        if not self.__other_is_sorting_element(other):
+    def __lt__(self, other) -> bool:
+        """
+        <
+        :param other: B in `A < B`
+        :return: A < B
+        :rtype: bool
+        """
+        if not self.__is_sorting_element(other):
             raise TypeError
         return self.value < other.value
 
-    def __gt__(self, other):
-        if not self.__other_is_sorting_element(other):
+    def __gt__(self, other) -> bool:
+        """
+        >
+        :param other: B in `A > B`
+        :return: A > B
+        :rtype: bool
+        """
+        if not self.__is_sorting_element(other):
             raise TypeError
         return self.value > other.value
 
-    def __eq__(self, other):
-        if not self.__other_is_sorting_element(other):
+    def __eq__(self, other) -> bool:
+        """
+        ==
+        :param other: B in `A == B`
+        :return: A == B
+        :rtype: bool
+        """
+        if not self.__is_sorting_element(other):
             raise TypeError
         return self.value == other.value
 
-    def __ne__(self, other):
-        if not self.__other_is_sorting_element(other):
+    def __ne__(self, other) -> bool:
+        """
+        !=
+        :param other: B in `A != B`
+        :return: A != B
+        :rtype: bool
+        """
+        if not self.__is_sorting_element(other):
             raise TypeError
         return self.value != other.value
 
-    def __int__(self):
-        return self.value
+    def __int__(self) -> int:
+        """
+        Integer value of this element
+        :return: Value of this element as an int
+        :rtype: int
+        """
+        return int(self.value)
 
-    def __float__(self):
-        return self.value
+    def __float__(self) -> float:
+        """
+        Float value of this element
+        :return: Value of this element as a float
+        :rtype: float
+        """
+        return float(self.value)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """
+        String representation of SortingElement
+        :return: Representation of SortingElement
+        :rtype: str
+        """
         return str(self.value)
 
 
