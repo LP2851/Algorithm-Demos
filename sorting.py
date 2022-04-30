@@ -242,12 +242,26 @@ class BubbleSort(ShowSortingGUI):
 
 
 class MergeSort(ShowSortingGUI):
+    """
+    Runs and displays a Merge Sort
+    """
     def __init__(self, width: int, height: int, elements: int) -> None:
+        """
+        :param width: Width of the window
+        :param height: Height of the window
+        :param elements: Number of elements to sort
+        """
         super().__init__(width, height, "Merge Sort", frame_length=0.02)
         self._to_sort = self.generate_values_to_sort(elements)
         self.draw()
 
     def __merge(self, start: int, middle: int, end: int) -> None:
+        """
+        Merges together two split halves and sorts them
+        :param start: Index for the start
+        :param middle: Index for middle
+        :param end: Index for end
+        """
         left = self._to_sort[start:middle+1]
         right = self._to_sort[middle+1:end+1]
 
@@ -289,6 +303,11 @@ class MergeSort(ShowSortingGUI):
             self.draw()
 
     def __merge_sort(self, start: int, end: int) -> None:
+        """
+        Splits the list half and then merges them together again
+        :param start: Starting index
+        :param end: Ending index
+        """
         if start < end:
             mid = int((start + end) / 2)
             self.__merge_sort(start, mid)
@@ -297,6 +316,9 @@ class MergeSort(ShowSortingGUI):
             self.__merge(start, mid, end)
 
     def sort(self) -> None:
+        """
+        Runs the merge sort algorithm
+        """
         self.__merge_sort(0, len(self._to_sort)-1)
         self.complete = True
         self.draw()
