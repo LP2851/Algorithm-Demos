@@ -3,7 +3,7 @@ import time
 import sys
 
 from sorting import BubbleSort, MergeSort
-from pathfinding import ShowPathfindingGUI
+from pathfinding import ShowPathfindingGUI, DepthFirstSearch
 
 
 ELEMENTS_TO_SORT = 50
@@ -45,16 +45,15 @@ def arg_merge_sort() -> None:
     sorter.close()
 
 
-def arg_pathfinder() -> None:
+def arg_dfs() -> None:
     """
-    Runs the --pathfinder command
-    Runs a pathfinding algorithm (WIP)
+    Runs the --dfs command
     """
-    pathfinder = ShowPathfindingGUI(768, 512, "test")
+    pathfinder = DepthFirstSearch(768, 512)
     pathfinder.draw()
-    while True:
-        time.sleep(0.2)
-        pathfinder.draw()
+    pathfinder.start(0.1)
+    while not pathfinder.check_events_exit():
+        pass
 
     pathfinder.close()
 
@@ -115,12 +114,12 @@ def main(args: list[str]) -> None:
 all_args = {
     "--help": ["Prints the help menu.",
                arg_help],
-    "--bubble-sort": ["SOMETHING",
+    "--bubble-sort": ["Performs a Bubble Sort",
                       arg_bubble_sort],
-    "--pathfinder": ["",
-                     arg_pathfinder],
     "--merge-sort": ["Performs a Merge Sort",
-                     arg_merge_sort]
+                     arg_merge_sort],
+    "--dfs": ["Performs a DFS",
+              arg_dfs],
 }
 
 if __name__ == "__main__":

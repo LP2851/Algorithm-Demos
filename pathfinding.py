@@ -8,6 +8,7 @@ pygame.font.init()
 
 TILE_SIZE = 16
 NO_OF_WALLS = 500
+FRAME_LENGTH = 0.05
 
 # COLORS
 RED = (255, 0, 0)
@@ -41,6 +42,7 @@ class PathfindingTile:
         self.row, self.col = pos
         self.__rect = self.__generate_rect(self.row, self.col)
         self.tag = tag
+        self.neighbours = set()
 
     def is_start_tile(self) -> bool:
         """
@@ -128,6 +130,13 @@ class PathfindingTile:
         self.visited = True
         self.color = color
 
+    def set_neighbours(self, neighbours: set) -> None:
+        """
+        Stores the set of neighbours for the tile
+        :param neighbours: The new set of neighbours for the tile
+        """
+        self.neighbours = neighbours
+
 
 class ShowPathfindingGUI(GUI):
     """
@@ -151,6 +160,7 @@ class ShowPathfindingGUI(GUI):
         self._start_pos = (0, 0)
         self._end_pos = (0, 0)
         self.generate_map(NO_OF_WALLS)
+        self.complete = False
 
     def start(self, wait_time: float) -> None:
         """
@@ -159,6 +169,27 @@ class ShowPathfindingGUI(GUI):
         """
         time.sleep(wait_time)
         self.solve()
+
+    def __generate_tile_neighbours(self) -> None:
+        """
+        Generates all neighbour sets for all tiles
+        """
+        directions = {(0, 1),
+                      (1, 0),
+                      (0, -1),
+                      (-1, 0)}
+        for row in range(len(self.map_tiles)):
+            for col in range(len(self.map_tiles[0])):
+                new_neighbours = set()
+                for (x, y) in directions:
+                    neighbour_row = row + x
+                    neighbour_col = col + y
+                    if neighbour_row < 0 or neighbour_row >= len(self.map_tiles) \
+                            or neighbour_col < 0 or neighbour_col >= len(self.map_tiles[0]):
+                        continue
+                    if not self.map_tiles[neighbour_row][neighbour_col].is_wall():
+                        new_neighbours.add(self.map_tiles[neighbour_row][neighbour_col])
+                self.map_tiles[row][col].set_neighbours(new_neighbours)
 
     def generate_map(self, max_walls: int) -> None:
         """
@@ -183,6 +214,8 @@ class ShowPathfindingGUI(GUI):
             self._end_pos = self.generate_random_position(self._width, self._height)
             x, y = self._end_pos
         self.map_tiles[x][y].set_end()
+
+        self.__generate_tile_neighbours()
 
     def __generate_walls(self, max_walls: int) -> None:
         """
@@ -234,4 +267,45 @@ class ShowPathfindingGUI(GUI):
             pygame.draw.line(self.window, (0, 0, 0), (0, col * TILE_SIZE), (self._width, col * TILE_SIZE), 1)
 
         pygame.display.update()
-        time.sleep(0.1)
+        time.sleep(FRAME_LENGTH)
+
+
+class DepthFirstSearch(ShowPathfindingGUI):
+    def __init__(self, width: int, height: int) -> None:
+        """
+        :param width: Width of the window
+        :param height: Height of the window
+        """
+        super().__init__(width, height, "Depth First Search")
+        self.draw()
+
+    def dfs(self, row: int, col: int) -> None:
+        """
+        Runs a DFS from the passed tile position
+        :param row: The row of the current tile
+        :param col: The column of the current tile
+        """
+        node = self.map_tiles[row][col]
+        if not node.visited:
+            node.visit()
+            self.draw()
+            if node.is_end_tile():
+                self.complete = True
+                return
+            for neighbour in node.neighbours:
+                self.dfs(neighbour.row, neighbour.col)
+                if self.complete:
+                    return
+
+    def solve(self) -> None:
+        """
+        
+        :return:
+        """
+        row, col = self._start_pos
+        self.dfs(row, col)
+        if self.complete:
+            print("A path was found")
+        else:
+            print("No path could be found!!")
+
