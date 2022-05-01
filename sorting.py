@@ -275,7 +275,6 @@ class MergeSort(ShowSortingGUI):
             left[i].focused = True
             right[j].focused = True
             if left[i] < right[j]:
-                print(f"{left[i]}<{right[j]}")
                 self._to_sort[k] = left[i]
                 i += 1
             else:
