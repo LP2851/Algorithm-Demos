@@ -20,6 +20,15 @@ def arg_help() -> None:
     input("Press enter to exit help menu.")
 
 
+def arg_all() -> None:
+    for arg, [_, func] in all_args.items():
+        if arg == "--help" or arg == "--all":
+            continue
+        # bold, green, reset, green, reset
+        print(f"\u001b[1m\u001b[32mRunning:\u001b[0m\u001b[32m {arg}\u001b[0m")
+        func()
+
+
 def arg_bubble_sort() -> None:
     """
     Runs the --bubble-sort command
@@ -42,6 +51,7 @@ def arg_merge_sort() -> None:
     while not sorter.check_events_exit():
         pass
     sorter.close()
+
 
 def arg_quick_sort() -> None:
     """
@@ -137,6 +147,8 @@ def main(args: list[str]) -> None:
 all_args = {
     "--help": ["Prints the help menu.",
                arg_help],
+    "--all" : ["Runs all of the command in order (apart from '--help').",
+               arg_all],
     "--bubble-sort": ["Performs a Bubble Sort",
                       arg_bubble_sort],
     "--merge-sort": ["Performs a Merge Sort",
