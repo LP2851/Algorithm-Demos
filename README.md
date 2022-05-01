@@ -16,6 +16,12 @@ Here are some screenshots of this in action:
 ![Merge Sort: Solving](images/merge-sort-sorting.PNG)
 ![Merge Sort: Complete](images/merge-sort-complete.PNG)
 
+### Quick Sort
+This is another 'divide-and-conquer' algorithm that is very fast (low time complexity), hence its name. The algorithm sorts by selecting pivots and moving other elements in an array segment before and after it based on its value. 
+Here are some screenshots of this in action:
+
+![Quick Sort: Solving](images/quick-sort-sorting.PNG)
+![Quick Sort: Complete](images/quick-sort-complete.PNG)
 ---
 ## Pathfinding Algorithms
 Key of tiles in visualisations:
@@ -24,12 +30,20 @@ Key of tiles in visualisations:
 - `GREEN CIRCLE`: Starting tile
 - `RED CIRCLE`: Ending tile
 
-Currently there are demonstrations of: DFS. 
+Currently, there are demonstrations of: DFS, BFS. 
 More will be implemented at a later date. 
 ### Depth-First Search (DFS)
-DFS is a simple graph searching algorithm in which you visit a node, add it to the visited list, run DFS on all of the nodes neighbours.
+DFS is a simple graph searching algorithm in which you visit a node, add it to the visited list, run DFS on all nodes neighbours.
 Here are some screenshots of this in action:
+
 ![DFS: Searching](images/dfs-searching.PNG)
 ![DFS: Complete](images/dfs-complete.PNG)
+
+### Breadth-First Search (BFS)
+BFS is a simple search algorithm in which you explore all nodes from the start one step way, then two steps, then three, until you reach the node you are looking for or run out of nodes to explore.
+Here are some screenshots of this in action:
+
+![BFS: Searching](images/bfs-searching.PNG)
+![BFS: Complete](images/bfs-complete.PNG)
 
 ---
