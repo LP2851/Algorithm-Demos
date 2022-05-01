@@ -299,7 +299,7 @@ class DepthFirstSearch(ShowPathfindingGUI):
 
     def solve(self) -> None:
         """
-        
+
         :return:
         """
         row, col = self._start_pos

@@ -18,9 +18,18 @@ Here are some screenshots of this in action:
 
 ---
 ## Pathfinding Algorithms
-Currently there are demonstrations of: None. 
+Key of tiles in visualisations:
+- `LIGHT GREY`: Unvisited tile
+- `DARK GREY`: Wall tile
+- `GREEN CIRCLE`: Starting tile
+- `RED CIRCLE`: Ending tile
+
+Currently there are demonstrations of: DFS. 
 More will be implemented at a later date. 
-### In Progress
-Very soon
+### Depth-First Search (DFS)
+DFS is a simple graph searching algorithm in which you visit a node, add it to the visited list, run DFS on all of the nodes neighbours.
+Here are some screenshots of this in action:
+![DFS: Searching](images/dfs-searching.PNG)
+![DFS: Complete](images/dfs-complete.PNG)
 
 ---
