@@ -52,11 +52,11 @@ def arg_pathfinder() -> None:
     """
     pathfinder = ShowPathfindingGUI(768, 512, "test")
     pathfinder.draw()
-    # while True:
-    #     time.sleep(0.2)
-    #     pathfinder.draw()
+    while True:
+        time.sleep(0.2)
+        pathfinder.draw()
 
-    # pathfinder.close()
+    pathfinder.close()
 
 
 def discard_arg(arg: str) -> None:
