@@ -276,7 +276,7 @@ class DepthFirstSearch(ShowPathfindingGUI):
         :param width: Width of the window
         :param height: Height of the window
         """
-        super().__init__(width, height, "Depth First Search")
+        super().__init__(width, height, "Depth-First Search")
         self.draw()
 
     def dfs(self, row: int, col: int) -> None:
@@ -299,8 +299,7 @@ class DepthFirstSearch(ShowPathfindingGUI):
 
     def solve(self) -> None:
         """
-
-        :return:
+        Runs the DFS and prints results to command line
         """
         row, col = self._start_pos
         self.dfs(row, col)
@@ -309,3 +308,50 @@ class DepthFirstSearch(ShowPathfindingGUI):
         else:
             print("No path could be found!!")
 
+
+class BreadthFirstSearch(ShowPathfindingGUI):
+    def __init__(self, width: int, height: int) -> None:
+        """
+        :param width: Width of the window
+        :param height: Height of the window
+        """
+        super().__init__(width, height, "Breadth-First Search")
+        self.draw()
+
+    def bfs(self, row: int, col: int) -> None:
+        """
+        Runs the BFS from the passed start tile location
+        :param row: The start position's row
+        :param col: The start position's column
+        """
+        visited = []
+        queue = []
+
+        node = self.map_tiles[row][col]
+        visited.append(node)
+        node.visit()
+        self.draw()
+        queue.append(node)
+
+        while queue:
+            n = queue.pop(0)
+            for neighbour in n.neighbours:
+                if neighbour not in visited:
+                    visited.append(neighbour)
+                    neighbour.visit()
+                    queue.append(neighbour)
+                    self.draw()
+                    if neighbour.is_end_tile():
+                        self.complete = True
+                        return
+
+    def solve(self) -> None:
+        """
+        Runs the BFS and prints the results to the command line
+        """
+        row, col = self._start_pos
+        self.bfs(row, col)
+        if self.complete:
+            print("A path was found")
+        else:
+            print("No path could be found!!")
