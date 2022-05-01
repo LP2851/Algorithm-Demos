@@ -2,8 +2,8 @@ from __future__ import annotations
 import time
 import sys
 
-from sorting import BubbleSort, MergeSort
-from pathfinding import ShowPathfindingGUI, DepthFirstSearch, BreadthFirstSearch
+from sorting import BubbleSort, MergeSort, QuickSort
+from pathfinding import DepthFirstSearch, BreadthFirstSearch
 
 ELEMENTS_TO_SORT = 50
 
@@ -38,6 +38,17 @@ def arg_merge_sort() -> None:
     Runs and shows the user a merge sort
     """
     sorter = MergeSort(768, 512, ELEMENTS_TO_SORT)
+    sorter.start(0.1)
+    while not sorter.check_events_exit():
+        pass
+    sorter.close()
+
+def arg_quick_sort() -> None:
+    """
+    Runs the --quick-sort command
+    Runs and shows the user a quick sort
+    """
+    sorter = QuickSort(768, 512, ELEMENTS_TO_SORT)
     sorter.start(0.1)
     while not sorter.check_events_exit():
         pass
@@ -130,6 +141,8 @@ all_args = {
                       arg_bubble_sort],
     "--merge-sort": ["Performs a Merge Sort",
                      arg_merge_sort],
+    "--quick-sort": ["Performs a Quick Sort",
+                     arg_quick_sort],
     "--dfs": ["Performs a DFS",
               arg_dfs],
     "--bfs": ["Performs a BFS",

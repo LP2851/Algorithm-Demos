@@ -322,3 +322,69 @@ class MergeSort(ShowSortingGUI):
         self.__merge_sort(0, len(self._to_sort)-1)
         self.complete = True
         self.draw()
+
+
+class QuickSort(ShowSortingGUI):
+    def __init__(self, width: int, height: int, elements: int) -> None:
+        """
+        :param width: Width of the window
+        :param height: Height of the window
+        :param elements: Number of elements to sort
+        """
+        super().__init__(width, height, "Quick Sort", frame_length=0.02)
+        self._to_sort = self.generate_values_to_sort(elements)
+        self.draw()
+
+    def partition(self, arr: list[SortingElement], low: int, high: int) -> int:
+        """
+        Given an array and an element x of array as pivot, put x at its correct position in sorted array.
+        :param arr: The array being sorted
+        :param low: The starting index
+        :param high: The ending index (and initial pivot point)
+        :return: The
+        """
+        i = low - 1
+        # I'm using the last point as the pivot
+        pivot = arr[high]
+
+        for j in range(low, high):
+            arr[i].focused = True
+            arr[j].focused = True
+            self.draw()
+            arr[i].focused = True
+            arr[j].focused = True
+            if arr[j] <= pivot:
+                i += 1
+                arr[i], arr[j] = arr[j], arr[i]
+            self.draw()
+        arr[i+1].focused = True
+        arr[high].focused = True
+        self.draw()
+        arr[i + 1], arr[high] = arr[high], arr[i + 1]
+        arr[i + 1].focused = True
+        arr[high].focused = True
+        self.draw()
+        return i + 1
+
+    def quick_sort(self, arr: list[SortingElement], low: int, high: int):
+        """
+        Main function for quick sort
+        :param arr: The array being sorted
+        :param low: The starting index
+        :param high: The ending index
+        """
+        if len(arr) == 1:
+            return arr
+        if low < high:
+            partitioning_index = self.partition(arr, low, high)
+
+            self.quick_sort(arr, low, partitioning_index-1)
+            self.quick_sort(arr, partitioning_index+1, high)
+
+    def sort(self) -> None:
+        """
+        Runs the Quick Sort algorithm
+        """
+        self.quick_sort(self._to_sort, 0, len(self._to_sort)-1)
+        self.complete = True
+        self.draw()
