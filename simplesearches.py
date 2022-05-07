@@ -44,6 +44,14 @@ class PathfindingTile:
         self.tag = tag
         self.neighbours = set()
 
+    def get_pos(self) -> tuple[int, int]:
+        """
+        Gets the position of the tile
+        :return: The position of the tile
+        :rtype: tuple[int, int]
+        """
+        return self.row, self.col
+
     def is_start_tile(self) -> bool:
         """
         Returns if the tile is the start tile
