@@ -11,14 +11,6 @@ class DijkstraAlgoSearch(ShowPathfindingGUI):
         self.draw()
         self.graph_flat = DijkstraAlgoSearch.flatten_tiles_map(self.map_tiles)
 
-    @staticmethod
-    def flatten_tiles_map(nodes: list[list[PathfindingTile]]) -> list[PathfindingTile]:
-        out = []
-        for row in nodes:
-            for elem in row:
-                out.append(elem)
-        return out
-
     def __dijkstra_algorithm(self, start_node: PathfindingTile) \
             -> tuple[dict[PathfindingTile, PathfindingTile], dict[PathfindingTile, int]]:
         # List of all nodes

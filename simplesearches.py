@@ -241,6 +241,20 @@ class ShowPathfindingGUI(GUI):
         y = random.randint(1, height // TILE_SIZE) - 1
         return x, y
 
+    @staticmethod
+    def flatten_tiles_map(nodes: list[list[PathfindingTile]]) -> list[PathfindingTile]:
+        """
+        Takes a tile map and flattens it from a 2D list to a 1D list.
+        :param nodes: The 2D tile map to be flattened
+        :return: 1D list of all tiles
+        :rtype: list[PathfindingTile]
+        """
+        out = []
+        for row in nodes:
+            for elem in row:
+                out.append(elem)
+        return out
+
     def solve(self) -> None:
         """
         Method implemented by child classes
