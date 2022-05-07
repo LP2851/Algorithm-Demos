@@ -103,13 +103,28 @@ class DijkstraAlgoSearch(ShowPathfindingGUI):
 
 
 class AStarSearch(ShowPathfindingGUI):
+    """
+    Runs the A* Search visualiser
+    """
     def __init__(self, width: int, height: int) -> None:
+        """
+        :param width: Width of the window
+        :param height: Height of the window
+        """
         super().__init__(width, height, "A* Search Algorithm", frame_time=0.1)
         self.draw()
-        self.graph_flat = DijkstraAlgoSearch.flatten_tiles_map(self.map_tiles)
 
     @staticmethod
     def __calculate_heuristic(node_a: PathfindingTile, node_b: PathfindingTile) -> float:
+        """
+        Uses Pythagoras' theorem to calculate an estimate distance
+        Used instead of Manhattan distance (which would be a better estimate) because
+        it will make sure the algorithm favours the correct direction more often.
+        :param node_a: Node A (current node)
+        :param node_b: Node B (next node)
+        :return: Estimated distance between the two nodes
+        :rtype: float
+        """
         ax, ay = node_a.get_pos()
         bx, by = node_b.get_pos()
         # Pythagoras
@@ -117,6 +132,13 @@ class AStarSearch(ShowPathfindingGUI):
 
     def __a_star(self, start_node: PathfindingTile, end_node: PathfindingTile) \
             -> tuple[dict[PathfindingTile, PathfindingTile], dict[PathfindingTile, int]]:
+        """
+        Runs A* Search to find path between start_node and end_node.
+        :param start_node: The start node for the algorithm
+        :param end_node: The target node for the algorithm
+        :return: Dictionary for the previous nodes and dictionary for shortest path values
+        :rtype: tuple[dict[PathfindingTile, PathfindingTile], dict[PathfindingTile, int]]
+        """
         # g: Distance between current node and start node
         # h: Heuristic (estimated distance from current to end node)
         # f: Total cost of node (f = g + h)
@@ -154,8 +176,8 @@ class AStarSearch(ShowPathfindingGUI):
     def display_path_from_prev_nodes(self, prev_nodes: dict[PathfindingTile, PathfindingTile]) -> None:
         """
         COPIED FROM DIJKSTRA'S - THIS CAN BE DONE BETTER XD
-        :param prev_nodes:
-        :return:
+        Displays the path using the prev_nodes that were found using A* Search
+        :param prev_nodes: Dictionary linking nodes to previous nodes representing paths to the starting node
         """
         x, y = self._start_pos
         start_node = self.map_tiles[x][y]
@@ -173,11 +195,16 @@ class AStarSearch(ShowPathfindingGUI):
             self.draw()
 
     def solve(self) -> None:
+        """
+        Runs the solver for the A* Search
+        """
         x, y = self._start_pos
         start_node = self.map_tiles[x][y]
         x, y = self._end_pos
         end_node = self.map_tiles[x][y]
+        # Solving
         prev_nodes, _ = self.__a_star(start_node, end_node)
         self._frame_time = 0.05
+        # Displaying Path
         self.display_path_from_prev_nodes(prev_nodes)
         self.complete = True
