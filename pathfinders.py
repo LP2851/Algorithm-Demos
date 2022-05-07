@@ -5,17 +5,31 @@ import priorityqueue
 
 from simplesearches import ShowPathfindingGUI, PathfindingTile
 
+# Large value (like an infinity value)
 LARGE_VALUE = 1000000
 
 
 class DijkstraAlgoSearch(ShowPathfindingGUI):
+    """
+    Runs a visualisation of Dijkstra's Algorithm
+    """
     def __init__(self, width: int, height: int) -> None:
+        """
+        :param width: Width of the window
+        :param height: Height of the window
+        """
         super().__init__(width, height, "Dijkstra's Algorithm", frame_time=0)
         self.draw()
         self.graph_flat = DijkstraAlgoSearch.flatten_tiles_map(self.map_tiles)
 
     def __dijkstra_algorithm(self, start_node: PathfindingTile) \
             -> tuple[dict[PathfindingTile, PathfindingTile], dict[PathfindingTile, int]]:
+        """
+        Runs dijkstra's algorithm on the graph/grid of tiles
+        :param start_node: The node act as the start node
+        :return: Dictionary for the previous nodes and dictionary for shortest path values
+        :rtype: tuple[dict[PathfindingTile, PathfindingTile], dict[PathfindingTile, int]]
+        """
         # List of all nodes
         unvisited_nodes = self.graph_flat.copy()
         # Best-known cost to all nodes
@@ -55,6 +69,10 @@ class DijkstraAlgoSearch(ShowPathfindingGUI):
         return prev_nodes, shortest_path
 
     def display_path_from_prev_nodes(self, prev_nodes: dict[PathfindingTile, PathfindingTile]) -> None:
+        """
+        Displays the path using the prev_nodes that were found using Dijkstra's Algorithm
+        :param prev_nodes: Dictionary linking nodes to previous nodes representing paths to the starting node
+        """
         x, y = self._start_pos
         start_node = self.map_tiles[x][y]
         x, y = self._end_pos
@@ -71,10 +89,15 @@ class DijkstraAlgoSearch(ShowPathfindingGUI):
             self.draw()
 
     def solve(self) -> None:
+        """
+        Runs Dijkstra's Algorithm and displays the results to the user
+        """
         x, y = self._start_pos
         start_node = self.map_tiles[x][y]
+        # Solve
         prev_nodes, _ = self.__dijkstra_algorithm(start_node)
         self._frame_time = 0.05
+        # Display path
         self.display_path_from_prev_nodes(prev_nodes)
         self.complete = True
 
