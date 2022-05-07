@@ -31,7 +31,7 @@ Key of tiles in visualisations:
 - `GREEN CIRCLE`: Starting tile
 - `RED CIRCLE`: Ending tile
 
-Currently, there are demonstrations of: DFS, BFS, Dijkstra's Algorithm. 
+Currently, there are demonstrations of: DFS, BFS, Dijkstra's Algorithm, A* Search. 
 More will be implemented at a later date. 
 ### Depth-First Search (DFS)
 DFS is a simple graph searching algorithm in which you visit a node, add it to the visited list, run DFS on all nodes neighbours.
@@ -53,5 +53,17 @@ Here are some screenshots of this in action:
 
 ![Dijkstra's Algorithm: Searching](images/dijkstra-searching.PNG)
 ![Dijkstra's Algorithm: Complete](images/dijkstra-complete.PNG)
+
+### A* Search
+A* search is an informed (best-fit) search. The algorithm uses 3 values to select the next node to move to. These are:
+- `g`: Distance between current node and start node.
+- `h`: Heuristic (estimated distance from current node to end node).
+- `f`: Total cost of moving to the node (`f = g + h`). 
+
+The algorithm selects the next node to move to by looking for the node with the smallest `f` value. It moves to the smallest `f` valued cell until it reaches the end node. 
+Here are some screenshots of this in action:
+
+![A* Search: Searching](images/a-star-searching.PNG)
+![A* Search: Complete](images/a-star-complete.PNG)
 
 ---
