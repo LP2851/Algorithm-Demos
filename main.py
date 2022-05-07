@@ -3,7 +3,8 @@ import time
 import sys
 
 from sorting import BubbleSort, MergeSort, QuickSort
-from pathfinding import DepthFirstSearch, BreadthFirstSearch
+from simplesearches import DepthFirstSearch, BreadthFirstSearch
+from pathfinders import DijkstraAlgoSearch
 
 ELEMENTS_TO_SORT = 50
 
@@ -91,6 +92,19 @@ def arg_bfs() -> None:
     pathfinder.close()
 
 
+def arg_dijkstra_algo() -> None:
+    """
+    Runs the --dijkstra-algo command
+    """
+    pathfinder = DijkstraAlgoSearch(768, 512)
+    pathfinder.draw()
+    pathfinder.start(0.1)
+    while not pathfinder.check_events_exit():
+        pass
+
+    pathfinder.close()
+
+
 def discard_arg(arg: str) -> None:
     """
     Tells the user that the arg found doesn't exist and has been discarded
@@ -159,6 +173,8 @@ all_args = {
               arg_dfs],
     "--bfs": ["Performs a BFS",
               arg_bfs],
+    "--dijkstra-algo": ["Performs Dijkstra's Algorithm to find shortest path",
+                        arg_dijkstra_algo],
 }
 
 if __name__ == "__main__":
