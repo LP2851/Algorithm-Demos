@@ -160,11 +160,34 @@ def run(args: list[str]) -> None:
         all_args[arg][1]()
 
 
+def get_manual_input_args() -> list[str]:
+    """
+    Manually gets the arguments from the user if none were entered.
+    :return: The list of arguments the user entered
+    :rtype: list[str]
+    """
+    # Red
+    print("\u001b[31m")
+    print(f"[Command Error]: You have not run this program with any commands.")
+    arg_help()
+    print("Type a list of arguments you would like to run in the form: '--bfs --quick-sort'")
+    # End red
+    print("\u001b[0m")
+
+    arg_str = input("Please enter arguments here: ")
+    return arg_str.split(" ")
+
+
 def main(args: list[str]) -> None:
     """
     Checks all the arguments and then runs the valid ones
     :param args: All arguments from user
     """
+
+    # Manually gets the arguments from the user if none were entered.
+    if len(args) == 0:
+        args = get_manual_input_args()
+
     args = check_args(args)
     print()
     run(args)
@@ -191,6 +214,7 @@ all_args = {
     "--a-star": ["Performs A* Search to find shortest path",
                       arg_a_star_algo],
 }
+
 
 if __name__ == "__main__":
     argv = sys.argv[1:]
