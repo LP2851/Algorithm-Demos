@@ -27,10 +27,11 @@ Here are some screenshots of this in action:
 Key of tiles in visualisations:
 - `LIGHT GREY`: Unvisited tile
 - `DARK GREY`: Wall tile
+- `DARK GREEN`: Path tile (shows path between two tiles)
 - `GREEN CIRCLE`: Starting tile
 - `RED CIRCLE`: Ending tile
 
-Currently, there are demonstrations of: DFS, BFS. 
+Currently, there are demonstrations of: DFS, BFS, Dijkstra's Algorithm. 
 More will be implemented at a later date. 
 ### Depth-First Search (DFS)
 DFS is a simple graph searching algorithm in which you visit a node, add it to the visited list, run DFS on all nodes neighbours.
@@ -45,5 +46,12 @@ Here are some screenshots of this in action:
 
 ![BFS: Searching](images/bfs-searching.PNG)
 ![BFS: Complete](images/bfs-complete.PNG)
+
+### Dijkstra's Algorithm
+Dijkstra's algorithm finds the shortest path between a start node and all other nodes in a graph. In my implementation, once all nodes have been visited the path between the start node and the end node is drawn. 
+Here are some screenshots of this in action:
+
+![Dijkstra's Algorithm: Searching](images/dijkstra-searching.PNG)
+![Dijkstra's Algorithm: Complete](images/dijkstra-complete.PNG)
 
 ---
